@@ -1,0 +1,9 @@
+old
+build
+.checksum
+cache
+tests
+test.js
+travis.yml
+node_modules
+*.md

@@ -1,0 +1,334 @@
+# [literate-programming-cli](# "version:0.7.4; Minimal command line for literate-programming")
+
+This is the command line portion of literate-programming. It depends on
+literate-programming-lib. 
+
+
+At the moment, at least, I am of the firm opinion that one should structure a
+litpro directory as cache, build, src, lprc.js  as where you start. These
+locations can be changed in the command line, but the idea is that you are at
+the top, it all goes down. 
+
+Any initially given filenames are read as is. This allows for shell
+completion. It is a little odd in that command line is non-prefixed while
+loading from within doc is prefixed. One can also specify starting files in
+lprc.js by modifying args.files. 
+
+## Directory structure
+
+* [litpro.js](#cli "save: | jshint") The literate program compiler is activated by a command line program.
+* [lprc.js](#lprc "save: | jshint") This will define the jshint command
+* [README.md](#readme "save:| raw ## README, !--- | sub \n\ #, # |trim ") The standard README.
+* [package.json](#npm-package "save: | jshint ") The requisite package file for a npm project. 
+* [TODO.md](#todo "save: | raw ## TODO, !--- ") A list of growing and shrinking items todo.
+* [LICENSE-MIT](#license-mit "save:  ") The MIT license as I think that is the standard in the node community. 
+* [.npmignore](#npmignore "save: ")
+* [.gitignore](#gitignore "save: ")
+* [.travis.yml](#travis "save: ")
+
+
+## Cli 
+
+This is the command line client for literate programming. This contains all
+the options for command line processing, but it comes without the standard
+library of plugins. See plugins for how we deal with them.
+
+It has different modes. The default is to take in one or more literate program
+files and compile them, doing whatever they say to do, typically saving them.
+There are options to specify the build and source directories. The defaults
+are `./build` and `./src`, respectively, if they are present. If not present,
+then the default is the directory where it is called. A root direcory can also
+be specified that will change the current working directory first before doing
+anything else. 
+
+The other modes are preview and diff, both of which will not save over any
+files.  
+
+
+    #!/usr/bin/env node
+
+    /*global process, require */
+
+    var mod = require('literate-programming-cli');
+
+    var args = mod.opts.parse();
+
+    //console.log(args);
+
+    var Folder = mod.Folder;
+
+    Folder.lprc(args.lprc, args);
+
+    Folder.cache.firstLoad(args.cache, args.cachefile);
+
+    Folder.process(args);
+
+    process.on('exit', Folder.exit());
+
+
+## lprc
+
+This imports the jshint command and starts that the build directory is the
+current one and the default file to process is this one. 
+
+    /*global module, require */
+    module.exports = function(Folder, args) {
+
+        if (args.file.length === 0) {
+            args.file = ["project.md"];
+        }
+        args.build = ".";
+         args.src = ".";
+
+        require('litpro-jshint')(Folder, args);
+
+    };
+
+
+
+[off](# "block:")
+
+## README
+
+
+ # litpro 
+
+This is the thin command-line client for
+[literate-programming-lib](https://github.com/jostylr/literate-programming-lib).
+It contains the minimal functionality for literate programming, but it does
+not have any other modules such as jshint included in it. For a fat client,
+check out
+[literate-programming](https://github.com/jostylr/literate-programming)
+
+Install using `npm install litpro`
+
+Usage is `./node_modules/bin/litpro file` and it has some command flags. 
+
+If you want a global install so that you just need to write `litpro` then use
+`npm install -g litpro`.
+
+ ## Example usage
+
+ Save the following code to file `project.md` and run `litpro project.md`.
+
+    # Welcome
+
+    So you want to make a literate program? Let's have a program that outputs
+    all numbers between 1 to 10.
+
+    Let's save it in file count.js
+
+    [count.js](#Structure "save:")
+
+    ## Structure 
+
+    We have some intial setup. Then we will generate the array of numbers. We
+    end with outputting the numbers. 
+
+        var numarr = [], start=1, end = 11, step = 1;
+
+        _"Loop"
+
+        _"Output"
+
+    ## Output 
+
+    At this point, we have the array of numbers. Now we can join them with a
+    comma and output that to the console.
+
+        console.log("The numbers are: ", numarr.join(", ") );
+
+    ## Loop
+
+    Set the loop up and push the numbers onto it. 
+
+        var i;
+        for (i = start; i < end; i += step) {
+            numarr.push(i);
+        }
+
+
+For more on the document format, see 
+[literate-programming-lib](https://github.com/jostylr/literate-programming-lib).
+
+
+ ## Flags
+
+The various command-line flags are
+
+* -e, --encoding Specify the default encoding. It defaults to utf8, but any
+  encoding supported by iconv-lite works. To override that behavior per loaded
+  file from a document, one can put the encoding between the colon and pipe in
+  the directive title. This applies to both reading and writing. 
+* --file A specified file to process. It is possible to have multiple
+  files, each proceeded by an option. Also any unclaimed arguments will be
+  assumed to be a file that gets added to the list. 
+* -l, --lprc This specifies the lprc.js file to use. None need not be
+  provided. The lprc file should export a function that takes in as arguments
+  the Folder constructor and an args object (what is processed from the
+  command line). This allows for quite a bit of sculpting. See more in lprc. 
+* -b, --build  The build directory. Defaults to build. Will create it if it
+  does not exist. Specifying . will use the current directory. 
+* -s, --src  The source directory to look for files from load directives. The
+  files specified on the command line are used as is while those loaded from
+  those files are prefixed. Shell tab completion is a reason for this
+  difference. 
+* -c, --cache The cache is a place for assets downloaded from the web.
+* --cachefile This gives an alternate name for the cache file that registers
+  what is downloaded. Default is `.cache`
+* --checksum This gives an alternate name for the file that lists the hash
+  for the generate files. If the compiled text matches, then it is not
+  written. Default is `.checksum` stored in the build directory.
+* -d, --diff This computes the difference between each files from their
+  existing versions. There is no saving of files. 
+* -o, --out This directs all saved files to standard out; no saving of
+  compiled texts will happen. Other saving of files could happen; this just
+  prevents those files being saved by the save directive from being saved. 
+* -f, --flag This passes in flags that can be used for conditional branching
+  within the literate programming. For example, one could have a production
+  flag that minimizes the code before saving. 
+
+
+ ## Use and Security
+
+This thin client is envisioned to be a developer dependency for projects using
+it. Thus one would install it via npm's json package system along with any
+litpro plugins. 
+
+The only caveat to this is that it is inherently unsecure to compile literate
+program documents. No effort has been made to make it secure. Compiling a
+literate program using this program is equivalent to running arbitrary code on
+your computer. Only compile from trusted sources, i.e., use the same
+precautions as running a node module. 
+ 
+
+ ## LICENSE
+
+[MIT-LICENSE](https://github.com/jostylr/literate-programming/blob/master/LICENSE-MIT)
+
+!---
+
+
+## TODO
+
+Tests
+
+!---
+
+[on](# "block:")
+
+## NPM package
+
+The requisite npm package file. 
+
+
+    {
+      "name": "_`g::docname`",
+      "description": "_`g::tagline`",
+      "version": "_`g::docversion`",
+      "homepage": "https://github.com/_`g::gituser`/_`g::docname`",
+      "author": {
+        "name": "_`g::authorname`",
+        "email": "_`g::authoremail`"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git://github.com/_`g::gituser`/_`g::docname`.git"
+      },
+      "bugs": {
+        "url": "https://github.com/_`g::gituser`/_`g::docname`/issues"
+      },
+      "licenses": [
+        {
+          "type": "MIT",
+          "url": "https://github.com/_`g::gituser`/_`g::docname`/blob/master/LICENSE-MIT"
+        }
+      ],
+      "main": "index.js",
+      "engines": {
+        "node": ">=0.10"
+      },
+      "dependencies":{
+        _"g::npm dependencies"
+      },
+      "devDependencies" : {
+        _"g::npm dev dependencies"
+      },
+      "scripts" : { 
+        "test" : "node ./test.js"
+      },
+      "keywords": ["literate programming"],
+      "bin": {
+        "litpro" : "./litpro.js"
+      }
+    }
+
+
+## gitignore
+
+    node_modules
+    build
+    cache
+    old
+    .checksum
+
+
+## npmignore
+
+
+    old
+    build
+    .checksum
+    cache
+    tests
+    test.js
+    travis.yml
+    node_modules
+    *.md
+
+
+## Travis
+
+A travis.yml file for continuous test integration!
+
+    language: node_js
+    node_js:
+      - "0.10"
+      - "0.12"
+      - "iojs"
+
+
+
+## LICENSE MIT
+
+
+    The MIT License (MIT)
+    Copyright (c) _"g::year" _"g::authorname"
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+
+
+
+
+by [James Taylor](https://github.com/jostylr "npminfo: jostylr@gmail.com ; 
+    deps: literate-programming-cli 0.7.4 ;
+    dev: event-when 1.0.0, litpro-jshint 0.1.0, tape 3.5.0 ")
+
+
