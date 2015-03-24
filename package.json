@@ -1,23 +1,23 @@
 {
-  "name": "literate-programming-cli",
+  "name": "litpro",
   "description": "Minimal command line for literate-programming",
   "version": "0.7.4",
-  "homepage": "https://github.com/jostylr/literate-programming-cli",
+  "homepage": "https://github.com/jostylr/litpro",
   "author": {
     "name": "James Taylor",
     "email": "jostylr@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jostylr/literate-programming-cli.git"
+    "url": "git://github.com/jostylr/litpro.git"
   },
   "bugs": {
-    "url": "https://github.com/jostylr/literate-programming-cli/issues"
+    "url": "https://github.com/jostylr/litpro/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/jostylr/literate-programming-cli/blob/master/LICENSE-MIT"
+      "url": "https://github.com/jostylr/litpro/blob/master/LICENSE-MIT"
     }
   ],
   "main": "index.js",

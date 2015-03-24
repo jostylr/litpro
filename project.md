@@ -1,4 +1,4 @@
-# [literate-programming-cli](# "version:0.7.4; Minimal command line for literate-programming")
+# [litpro](# "version:0.7.4; Minimal command line for literate-programming")
 
 This is the command line portion of literate-programming. It depends on
 literate-programming-lib. 
