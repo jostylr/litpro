@@ -1,5 +1,4 @@
 node_modules
-build
-cache
-old
-.checksum
+/build
+/cache
+/.checksum

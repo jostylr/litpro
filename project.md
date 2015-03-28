@@ -1,4 +1,4 @@
-# [litpro](# "version:0.7.4; Minimal command line for literate-programming")
+# [litpro](# "version:0.8.0; Minimal command line for literate-programming")
 
 This is the command line portion of literate-programming. It depends on
 literate-programming-lib. 
@@ -16,8 +16,9 @@ lprc.js by modifying args.files.
 
 ## Directory structure
 
-* [litpro.js](#cli "save: | jshint") The literate program compiler is activated by a command line program.
-* [lprc.js](#lprc "save: | jshint") This will define the jshint command
+* [litpro.js](#cli "save: |jshint ") The literate program compiler is activated by a command line program.
+* [lprc.js](#lprc "save: |jshint") This will define the jshint command
+* [test.js](#test "save: |jshint ") The testing file. 
 * [README.md](#readme "save:| raw ## README, !--- | sub \n\ #, # |trim ") The standard README.
 * [package.json](#npm-package "save: | jshint ") The requisite package file for a npm project. 
 * [TODO.md](#todo "save: | raw ## TODO, !--- ") A list of growing and shrinking items todo.
@@ -27,44 +28,12 @@ lprc.js by modifying args.files.
 * [.travis.yml](#travis "save: ")
 
 
-## Cli 
+Reading file into cli
 
-This is the command line client for literate programming. This contains all
-the options for command line processing, but it comes without the standard
-library of plugins. See plugins for how we deal with them.
+[cli](node_modules/literate-programming-cli/litpro.js "readfile:| 
+    sub ./index.js, literate-programming-cli ")
 
-It has different modes. The default is to take in one or more literate program
-files and compile them, doing whatever they say to do, typically saving them.
-There are options to specify the build and source directories. The defaults
-are `./build` and `./src`, respectively, if they are present. If not present,
-then the default is the directory where it is called. A root direcory can also
-be specified that will change the current working directory first before doing
-anything else. 
-
-The other modes are preview and diff, both of which will not save over any
-files.  
-
-
-    #!/usr/bin/env node
-
-    /*global process, require */
-
-    var mod = require('literate-programming-cli');
-
-    var args = mod.opts.parse();
-
-    //console.log(args);
-
-    var Folder = mod.Folder;
-
-    Folder.lprc(args.lprc, args);
-
-    Folder.cache.firstLoad(args.cache, args.cachefile);
-
-    Folder.process(args);
-
-    process.on('exit', Folder.exit());
-
+This is a bit of an elaborate copy pathway...
 
 ## lprc
 
@@ -83,6 +52,22 @@ current one and the default file to process is this one.
         require('litpro-jshint')(Folder, args);
 
     };
+
+
+## Test
+
+This just has one test currently. This should pass the same tests as
+literate-programming-cli.  Just need to make sure it is hooked up correctly. 
+
+
+    /* global require */
+    var tests = require('literate-programming-cli-test')("node ../../litpro.js");
+
+    tests( 
+        ["first",  "first.md second.md"]
+    );
+
+
 
 
 
@@ -211,7 +196,6 @@ precautions as running a node module.
 
 ## TODO
 
-Tests
 
 !---
 
@@ -267,10 +251,9 @@ The requisite npm package file.
 ## gitignore
 
     node_modules
-    build
-    cache
-    old
-    .checksum
+    /build
+    /cache
+    /.checksum
 
 
 ## npmignore
@@ -328,7 +311,8 @@ A travis.yml file for continuous test integration!
 
 
 by [James Taylor](https://github.com/jostylr "npminfo: jostylr@gmail.com ; 
-    deps: literate-programming-cli 0.7.4 ;
-    dev: event-when 1.0.0, litpro-jshint 0.1.0, tape 3.5.0 ")
+    deps: literate-programming-cli 0.8.0 ;
+    dev: event-when 1.0.0, litpro-jshint 0.1.0, 
+        literate-programming-cli-test 0.1.0")
 
 
