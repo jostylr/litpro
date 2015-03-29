@@ -1,4 +1,4 @@
-# [litpro](# "version:0.8.2; Minimal command line for literate-programming")
+# [litpro](# "version:0.8.4; Minimal command line for literate-programming")
 
 This is the command line portion of literate-programming. It depends on
 literate-programming-lib. 
@@ -64,7 +64,7 @@ literate-programming-cli.  Just need to make sure it is hooked up correctly.
     var tests = require('literate-programming-cli-test')("node ../../litpro.js");
 
     tests( 
-        ["first",  "first.md second.md"]
+        ["first",  "first.md second.md -s ."]
     );
 
 
@@ -311,7 +311,7 @@ A travis.yml file for continuous test integration!
 
 
 by [James Taylor](https://github.com/jostylr "npminfo: jostylr@gmail.com ; 
-    deps: literate-programming-cli 0.8.2 ;
+    deps: literate-programming-cli 0.8.4 ;
     dev: event-when 1.0.0, litpro-jshint 0.1.0, 
         literate-programming-cli-test 0.1.0")
 
