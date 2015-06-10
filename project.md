@@ -1,4 +1,4 @@
-# [litpro](# "version:0.8.5; Minimal command line for literate-programming")
+# [litpro](# "version:0.8.6; Minimal command line for literate-programming")
 
 This is the command line portion of literate-programming. It depends on
 literate-programming-lib. 
@@ -22,7 +22,7 @@ lprc.js by modifying args.files.
 * [README.md](#readme "save:| raw ## README, !--- | sub \n\ #, # |trim ") The standard README.
 * [package.json](#npm-package "save: | jshint ") The requisite package file for a npm project. 
 * [TODO.md](#todo "save: | raw ## TODO, !--- ") A list of growing and shrinking items todo.
-* [LICENSE-MIT](#license-mit "save:  ") The MIT license as I think that is the standard in the node community. 
+* [LICENSE](#license-mit "save:  ") The MIT license as I think that is the standard in the node community. 
 * [.npmignore](#npmignore "save: ")
 * [.gitignore](#gitignore "save: ")
 * [.travis.yml](#travis "save: ")
@@ -222,12 +222,7 @@ The requisite npm package file.
       "bugs": {
         "url": "https://github.com/_`g::gituser`/_`g::docname`/issues"
       },
-      "licenses": [
-        {
-          "type": "MIT",
-          "url": "https://github.com/_`g::gituser`/_`g::docname`/blob/master/LICENSE-MIT"
-        }
-      ],
+      "license": "MIT", 
       "main": "index.js",
       "engines": {
         "node": ">=0.10"
@@ -311,7 +306,7 @@ A travis.yml file for continuous test integration!
 
 
 by [James Taylor](https://github.com/jostylr "npminfo: jostylr@gmail.com ; 
-    deps: literate-programming-cli 0.8.5 ;
+    deps: literate-programming-cli 0.8.6 ;
     dev: event-when 1.0.0, litpro-jshint 0.1.0, 
         literate-programming-cli-test 0.1.0")
 

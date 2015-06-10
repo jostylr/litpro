@@ -1,7 +1,7 @@
 {
   "name": "litpro",
   "description": "Minimal command line for literate-programming",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "homepage": "https://github.com/jostylr/litpro",
   "author": {
     "name": "James Taylor",
@@ -14,18 +14,13 @@
   "bugs": {
     "url": "https://github.com/jostylr/litpro/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/jostylr/litpro/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT", 
   "main": "index.js",
   "engines": {
     "node": ">=0.10"
   },
   "dependencies":{
-    "literate-programming-cli" : "^0.8.5"
+    "literate-programming-cli" : "^0.8.6"
   },
   "devDependencies" : {
     "event-when" : "^1.0.0",
