@@ -25,7 +25,7 @@ args.other.forEach(function (arg) {
     }
 });
 
-//console.log(args);
+//console.warn("!!", args);
 
 var Folder = mod.Folder;
 
