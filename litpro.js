@@ -30,6 +30,23 @@ args.other.forEach(function (arg) {
 var Folder = mod.Folder;
 
 Folder.prototype.encoding = args.encoding;
+Folder.prototype.displayScopes = (args.scopes ? function () {
+    var folder = this;
+    var str = '';
+    Object.keys(folder.scopes).forEach(function (el) {
+        str += el+ "::\n------\n";
+        var scope = folder.scopes[el];
+        Object.keys(scope).sort().forEach(
+            function (v) {
+                str+= v + ": '" + scope[v] + "'\n* * *\n";
+            });
+        str += "\n------\n";
+    });
+    str = str.replace(/\n\n/g, "\n");
+    console.log(str);
+} :
+    function () {} );
+
 
 Folder.lprc(args.lprc, args);
 
