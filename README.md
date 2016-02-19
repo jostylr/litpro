@@ -3,9 +3,9 @@
 This is the thin command-line client for
 [literate-programming-lib](https://github.com/jostylr/literate-programming-lib).
 It contains the minimal functionality for literate programming, but it does
-not have any other modules such as jshint included in it. For a fat client,
+not have any other modules such as jshint included in it. ~~For a fat client,
 check out
-[literate-programming](https://github.com/jostylr/literate-programming)
+[literate-programming](https://github.com/jostylr/literate-programming)~~ [not yet implemented].
 
 Install using `npm install litpro`
 
