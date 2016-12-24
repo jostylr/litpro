@@ -1,4 +1,4 @@
-# [litpro](# "version:0.12.1; Minimal command line for literate-programming")
+# [litpro](# "version:0.13.0; Minimal command line for literate-programming")
 
 This is the command line portion of literate-programming. It depends on
 literate-programming-lib. 
@@ -304,8 +304,8 @@ A travis.yml file for continuous test integration!
 
 
 by [James Taylor](https://github.com/jostylr "npminfo: jostylr@gmail.com ; 
-    deps: literate-programming-cli 0.12.1 ;
-    dev: litpro-jshint 0.2.1, 
+    deps: literate-programming-cli 0.13.0 ;
+    dev: litpro-jshint 0.3.1, 
         literate-programming-cli-test 0.5.1")
 
 
