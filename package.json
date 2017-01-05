@@ -1,7 +1,7 @@
 {
   "name": "litpro",
   "description": "Minimal command line for literate-programming",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/jostylr/litpro",
   "author": {
     "name": "James Taylor",
@@ -20,7 +20,7 @@
     "node": ">=0.10"
   },
   "dependencies":{
-    "literate-programming-cli" : "^1.0.1"
+    "literate-programming-cli" : "^1.0.2"
   },
   "devDependencies" : {
     "litpro-jshint" : "^0.3.1",
