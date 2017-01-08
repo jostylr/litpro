@@ -29,6 +29,8 @@ args.other.forEach(function (arg) {
 
 var Folder = mod.Folder;
 
+Folder.inputs = args;
+
 Folder.prototype.encoding = args.encoding;
 Folder.prototype.displayScopes = (args.scopes ? function () {
     var folder = this;
