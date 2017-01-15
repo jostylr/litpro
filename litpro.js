@@ -14,6 +14,7 @@ args.build = args.build.map(function (el) {
     }
 });
 
+var z = {};
 args.other.forEach(function (arg) {
     var pair = arg.split(":");
     if (pair.length === 1) {
@@ -21,8 +22,9 @@ args.other.forEach(function (arg) {
     } else if (pair.length === 2) {
         args[pair[0]] = pair[1]; 
     } else {
-        args[pair[0]] = pair.slice(0);
+        args[pair[0]] = pair.slice(1);
     }
+    z[pair[0]] = args[pair[0]];
 });
 
 //console.warn("!!", args);
@@ -30,6 +32,9 @@ args.other.forEach(function (arg) {
 var Folder = mod.Folder;
 
 Folder.inputs = args;
+Folder.z = z;
+
+//plugin-to-folder
 
 Folder.prototype.encoding = args.encoding;
 Folder.prototype.displayScopes = (args.scopes ? function () {
