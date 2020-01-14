@@ -1,4 +1,4 @@
-# [litpro](# "version:2.0.0; Minimal command line for literate-programming")
+# [litpro](# "version:2.1.0; Minimal command line for literate-programming")
 
 This is the command line portion of literate-programming. It depends on
 literate-programming-lib. 
@@ -235,9 +235,10 @@ The requisite npm package file.
     cache
     tests
     test.js
-    travis.yml
+    .travis.yml
     node_modules
     *.md
+    lprc.js
 
 
 ## Travis
@@ -280,8 +281,8 @@ A travis.yml file for continuous test integration!
 
 
 by [James Taylor](https://github.com/jostylr "npminfo: jostylr@gmail.com ; 
-    deps: literate-programming-cli 2.0.0 ;
-    dev: litpro-jshint 0.3.1, 
+    deps: literate-programming-cli 2.1.0 ;
+    dev: litpro-jshint 0.4.0, 
         literate-programming-cli-test 0.5.1")
 
 
